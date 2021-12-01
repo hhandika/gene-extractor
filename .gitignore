@@ -15,3 +15,5 @@ Cargo.lock
 /target
 
 genx*
+
+/test_data

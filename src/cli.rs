@@ -1,13 +1,16 @@
 use std::io::Result;
+use std::path::{Path, PathBuf};
 
-use crate::utils;
 use clap::{crate_description, crate_name, App, AppSettings, Arg, ArgMatches};
-
+use glob::glob;
 use log::LevelFilter;
 use log4rs::append::console::ConsoleAppender;
 use log4rs::append::file::FileAppender;
 use log4rs::config::{Appender, Config, Root};
 use log4rs::encode::pattern::PatternEncoder;
+
+use crate::extract;
+use crate::utils;
 
 fn get_args(version: &str) -> ArgMatches {
     App::new(crate_name!())
@@ -23,26 +26,17 @@ fn get_args(version: &str) -> ArgMatches {
                     Arg::with_name("dir")
                         .short("d")
                         .long("dir")
-                        .help("Inputs folder path to locus alignment")
+                        .help("Path to contig directory")
                         .takes_value(true)
                         .value_name("DIR"),
-                ),
-        )
-        .subcommand(
-            App::new("deps")
-                .about("Solves dependency issues")
-                .subcommand(
-                    App::new("astral")
-                        .about("Fixes astral dependency issues")
-                        .arg(
-                            Arg::with_name("jar")
-                                .short("-j")
-                                .long("jar")
-                                .help("Inputs path to the ASTRAL jar file.")
-                                .takes_value(true)
-                                .required(true)
-                                .value_name("ASTRAL-JAR-PATH"),
-                        ),
+                )
+                .arg(
+                    Arg::with_name("refs")
+                        .short("r")
+                        .long("refs")
+                        .help("Path to reference fasta files")
+                        .takes_value(true)
+                        .value_name("DIR"),
                 ),
         )
         .get_matches()
@@ -59,11 +53,14 @@ pub fn parse_cli(version: &str) {
 }
 
 fn parse_extract_cli(matches: &ArgMatches, version: &str) {
-    let dir = get_path(matches);
-    println!("DIR: {}", dir);
+    let con_path = matches.value_of("dir").expect("CANNOT GET DIRECTORY PATH");
+    let ref_path = matches.value_of("refs").expect("CANNOT GET DIRECTORY PATH");
+    let contigs = get_contig_path(con_path);
+    let refs = get_reference_path(ref_path);
     display_app_info(version);
-    log_input(dir);
-    print_complete();
+    log_input(con_path, ref_path);
+    extract::extract_genes(&contigs, &refs);
+    // print_complete();
 }
 // fn parse_input_fmt(matches: &ArgMatches) -> InputFmt {
 //     let input_fmt = matches
@@ -77,8 +74,19 @@ fn parse_extract_cli(matches: &ArgMatches, version: &str) {
 //     }
 // }
 
-fn get_path<'a>(matches: &'a ArgMatches) -> &'a str {
-    matches.value_of("dir").expect("CANNOT GET DIRECTORY PATH")
+fn get_contig_path(path: &str) -> Vec<PathBuf> {
+    find_files(Path::new(path))
+}
+
+fn get_reference_path(path: &str) -> Vec<PathBuf> {
+    find_files(Path::new(path))
+}
+
+fn find_files(path: &Path) -> Vec<PathBuf> {
+    glob(&format!("{}/*.nex*", path.display()))
+        .expect("Failed globbing files")
+        .filter_map(|ok| ok.ok())
+        .collect::<Vec<PathBuf>>()
 }
 
 fn display_app_info(version: &str) {
@@ -88,13 +96,14 @@ fn display_app_info(version: &str) {
     utils::system_info();
 }
 
-fn print_complete() {
-    log::info!("COMPLETED!");
-    log::info!("Please, check each program log for commands and other details!\n")
-}
+// fn print_complete() {
+//     log::info!("COMPLETED!");
+//     log::info!("Please, check each program log for commands and other details!\n")
+// }
 
-fn log_input(path: &str) {
-    log::info!("{:18}: {}", "Input", path);
+fn log_input(con_path: &str, ref_path: &str) {
+    log::info!("{:18}: {}", "Contig Dir", con_path);
+    log::info!("{:18}: {}", "Reference Dir", ref_path);
     // match params {
     //     Some(param) => log::info!("{:18}: {}", "Opt params", param),
     //     None => log::info!("{:18}: None", "Params"),
@@ -103,7 +112,7 @@ fn log_input(path: &str) {
 
 fn setup_logger() -> Result<()> {
     let log_dir = std::env::current_dir()?;
-    let target = log_dir.join("genx.log");
+    let target = log_dir.join("gene-extractor.log");
     let tofile = FileAppender::builder()
         .encoder(Box::new(PatternEncoder::new(
             "{d(%Y-%m-%d %H:%M:%S %Z)} - {l} - {m}\n",

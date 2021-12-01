@@ -1,8 +1,13 @@
 [package]
-name = "genx"
-description = "Extract gene using reference"
+name = "gene-extractor"
 version = "0.1.0"
+authors = ["Heru Handika <herubiolog@gmail.com>"]
 edition = "2021"
+license = "MIT"
+description = "Extract gene using reference"
+readme = "README.md"
+keywords = ["cli", "utility", "phylogenetics", "genomics", "phylogenomics"]
+categories = ["command-line-utilities", "science"]
 
 [dependencies]
 ansi_term = "0.*"
@@ -13,7 +18,11 @@ num_cpus = "1.13.*"
 rayon = "1.*"
 sysinfo = "0.21.1"
 log4rs = "1.*"
-
+glob = "*"
 
 [profile.release]
 panic = "abort"
+
+[[bin]]
+name = "genx"
+path = "src/main.rs"

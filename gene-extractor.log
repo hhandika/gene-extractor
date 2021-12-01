@@ -1,0 +1,63 @@
+2021-12-01 16:43:24 -06:00 - INFO - gene-extractor v0.1.0
+2021-12-01 16:43:24 -06:00 - INFO - Extract gene using reference
+2021-12-01 16:43:24 -06:00 - INFO - Developed by Heru Handika
+
+2021-12-01 16:43:24 -06:00 - INFO - [33mSystem Information[0m
+2021-12-01 16:43:24 -06:00 - INFO - Operating system  : Darwin 12.0.1
+2021-12-01 16:43:24 -06:00 - INFO - Kernel version    : 21.1.0
+2021-12-01 16:43:24 -06:00 - INFO - Available cores   : 8
+2021-12-01 16:43:24 -06:00 - INFO - Available threads : 8
+2021-12-01 16:43:24 -06:00 - INFO - Total RAM         : 8 Gb
+2021-12-01 16:43:24 -06:00 - INFO - Date and time     : 2021-12-01 16:43:24
+
+2021-12-01 16:43:24 -06:00 - INFO - Contig Dir        : test_data/
+2021-12-01 16:43:24 -06:00 - INFO - Reference Dir     : test_data/
+2021-12-01 16:43:24 -06:00 - INFO - COMPLETED!
+2021-12-01 16:43:24 -06:00 - INFO - Please, check each program log for commands and other details!
+
+2021-12-01 16:43:24 -06:00 - INFO - Execution time: 37.837ms
+2021-12-01 16:45:22 -06:00 - INFO - gene-extractor v0.1.0
+2021-12-01 16:45:22 -06:00 - INFO - Extract gene using reference
+2021-12-01 16:45:22 -06:00 - INFO - Developed by Heru Handika
+
+2021-12-01 16:45:22 -06:00 - INFO - [33mSystem Information[0m
+2021-12-01 16:45:22 -06:00 - INFO - Operating system  : Darwin 12.0.1
+2021-12-01 16:45:22 -06:00 - INFO - Kernel version    : 21.1.0
+2021-12-01 16:45:22 -06:00 - INFO - Available cores   : 8
+2021-12-01 16:45:22 -06:00 - INFO - Available threads : 8
+2021-12-01 16:45:22 -06:00 - INFO - Total RAM         : 8 Gb
+2021-12-01 16:45:22 -06:00 - INFO - Date and time     : 2021-12-01 16:45:22
+
+2021-12-01 16:45:22 -06:00 - INFO - Contig Dir        : test_data/
+2021-12-01 16:45:22 -06:00 - INFO - Reference Dir     : test_data/
+2021-12-01 16:45:22 -06:00 - INFO - Execution time: 40.481083ms
+2021-12-01 16:46:51 -06:00 - INFO - gene-extractor v0.1.0
+2021-12-01 16:46:51 -06:00 - INFO - Extract gene using reference
+2021-12-01 16:46:51 -06:00 - INFO - Developed by Heru Handika
+
+2021-12-01 16:46:51 -06:00 - INFO - [33mSystem Information[0m
+2021-12-01 16:46:51 -06:00 - INFO - Operating system  : Darwin 12.0.1
+2021-12-01 16:46:51 -06:00 - INFO - Kernel version    : 21.1.0
+2021-12-01 16:46:51 -06:00 - INFO - Available cores   : 8
+2021-12-01 16:46:51 -06:00 - INFO - Available threads : 8
+2021-12-01 16:46:51 -06:00 - INFO - Total RAM         : 8 Gb
+2021-12-01 16:46:51 -06:00 - INFO - Date and time     : 2021-12-01 16:46:51
+
+2021-12-01 16:46:51 -06:00 - INFO - Contig Dir        : test_data/
+2021-12-01 16:46:51 -06:00 - INFO - Reference Dir     : test_data/
+2021-12-01 16:46:51 -06:00 - INFO - Execution time: 40.811208ms
+2021-12-01 16:47:04 -06:00 - INFO - gene-extractor v0.1.0
+2021-12-01 16:47:04 -06:00 - INFO - Extract gene using reference
+2021-12-01 16:47:04 -06:00 - INFO - Developed by Heru Handika
+
+2021-12-01 16:47:04 -06:00 - INFO - [33mSystem Information[0m
+2021-12-01 16:47:04 -06:00 - INFO - Operating system  : Darwin 12.0.1
+2021-12-01 16:47:04 -06:00 - INFO - Kernel version    : 21.1.0
+2021-12-01 16:47:04 -06:00 - INFO - Available cores   : 8
+2021-12-01 16:47:04 -06:00 - INFO - Available threads : 8
+2021-12-01 16:47:04 -06:00 - INFO - Total RAM         : 8 Gb
+2021-12-01 16:47:04 -06:00 - INFO - Date and time     : 2021-12-01 16:47:04
+
+2021-12-01 16:47:04 -06:00 - INFO - Contig Dir        : test_data/
+2021-12-01 16:47:04 -06:00 - INFO - Reference Dir     : test_data/
+2021-12-01 16:47:04 -06:00 - INFO - Execution time: 36.079583ms
