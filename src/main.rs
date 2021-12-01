@@ -4,6 +4,7 @@ use std::time::Instant;
 use clap::crate_version;
 
 mod cli;
+mod extract;
 mod utils;
 
 fn main() {

@@ -59,9 +59,11 @@ pub fn parse_cli(version: &str) {
 }
 
 fn parse_extract_cli(matches: &ArgMatches, version: &str) {
-    let dir = matches.value_of("dir").unwrap();
+    let dir = get_path(matches);
     println!("DIR: {}", dir);
-    display_app_info(version)
+    display_app_info(version);
+    log_input(dir);
+    print_complete();
 }
 // fn parse_input_fmt(matches: &ArgMatches) -> InputFmt {
 //     let input_fmt = matches
@@ -91,12 +93,12 @@ fn print_complete() {
     log::info!("Please, check each program log for commands and other details!\n")
 }
 
-fn log_input(path: &str, params: &Option<String>) {
+fn log_input(path: &str) {
     log::info!("{:18}: {}", "Input", path);
-    match params {
-        Some(param) => log::info!("{:18}: {}", "Opt params", param),
-        None => log::info!("{:18}: None", "Params"),
-    }
+    // match params {
+    //     Some(param) => log::info!("{:18}: {}", "Opt params", param),
+    //     None => log::info!("{:18}: None", "Params"),
+    // }
 }
 
 fn setup_logger() -> Result<()> {
