@@ -1,3 +1,23 @@
+use std::panic;
+use std::time::Instant;
+
+use clap::crate_version;
+
+mod cli;
+mod utils;
+
 fn main() {
-    println!("Hello, world!");
+    panic::set_hook(Box::new(move |panic_info| {
+        log::error!("{}", panic_info);
+    }));
+
+    let version = crate_version!();
+    let time = Instant::now();
+    cli::parse_cli(&version);
+    let duration = time.elapsed();
+    if duration.as_secs() < 60 {
+        log::info!("Execution time: {:?}", duration);
+    } else {
+        utils::print_formatted_duration(duration.as_secs());
+    }
 }

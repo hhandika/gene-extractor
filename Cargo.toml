@@ -1,8 +1,19 @@
 [package]
-name = "gene-extractor"
+name = "genx"
+description = "Extract gene using reference"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+ansi_term = "0.*"
+clap = "2.33.*"
+log = "0.*"
+chrono = "0.4.*"
+num_cpus = "1.13.*"
+rayon = "1.*"
+sysinfo = "0.21.1"
+log4rs = "1.*"
+
+
+[profile.release]
+panic = "abort"
