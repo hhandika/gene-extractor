@@ -14,7 +14,7 @@ fn main() {
 
     let version = crate_version!();
     let time = Instant::now();
-    cli::parse_cli(&version);
+    cli::parse_cli(version);
     let duration = time.elapsed();
     if duration.as_secs() < 60 {
         log::info!("Execution time: {:?}", duration);

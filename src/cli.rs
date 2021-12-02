@@ -28,7 +28,7 @@ fn get_args(version: &str) -> ArgMatches {
                         .long("dir")
                         .help("Path to contig directory")
                         .takes_value(true)
-                        .value_name("DIR"),
+                        .value_name("PATH"),
                 )
                 .arg(
                     Arg::with_name("refs")
@@ -36,7 +36,15 @@ fn get_args(version: &str) -> ArgMatches {
                         .long("refs")
                         .help("Path to reference fasta files")
                         .takes_value(true)
-                        .value_name("DIR"),
+                        .value_name("PATH"),
+                )
+                .arg(
+                    Arg::with_name("output")
+                        .short("o")
+                        .long("output")
+                        .help("Path to output files")
+                        .takes_value(true)
+                        .value_name("PATH"),
                 ),
         )
         .get_matches()
@@ -46,20 +54,29 @@ pub fn parse_cli(version: &str) {
     let args = get_args(version);
     setup_logger().expect("Failed setting up a log file.");
     match args.subcommand() {
-        ("extract", Some(extract_matches)) => parse_extract_cli(extract_matches, &version),
+        ("extract", Some(extract_matches)) => parse_extract_cli(extract_matches, version),
         ("check", Some(_)) => display_app_info(version),
         _ => unreachable!(),
     }
 }
 
 fn parse_extract_cli(matches: &ArgMatches, version: &str) {
-    let con_path = matches.value_of("dir").expect("CANNOT GET DIRECTORY PATH");
-    let ref_path = matches.value_of("refs").expect("CANNOT GET DIRECTORY PATH");
+    let con_path = matches
+        .value_of("dir")
+        .expect("Failed get contig directory path.");
+    let ref_path = matches
+        .value_of("refs")
+        .expect("Failed to get reference directory path.");
+    let output = Path::new(
+        matches
+            .value_of("output")
+            .expect("Failed get output directory path."),
+    );
     let contigs = get_contig_path(con_path);
     let refs = get_reference_path(ref_path);
     display_app_info(version);
     log_input(con_path, ref_path);
-    extract::extract_genes(&contigs, &refs);
+    extract::extract_genes(&contigs, &refs, output);
     // print_complete();
 }
 // fn parse_input_fmt(matches: &ArgMatches) -> InputFmt {
