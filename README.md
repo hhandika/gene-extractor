@@ -9,7 +9,7 @@ A command line app to extract gene from genomic contigs. The program requires ph
 You can also install the app using the Rust package manager [cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html):
 
 ```Bash
-cargo install genx
+cargo install gene-extractor
 ```
 
 OS support:
