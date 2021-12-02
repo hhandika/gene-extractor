@@ -16,7 +16,7 @@ pub fn extract_genes(contigs: &Path, refs: &[PathBuf], output: &Path) {
         utils::print_divider(&text, 60);
         let save_path = output.join(refs_name);
         log::info!("{:18}: {}", "Contig dir", contigs.display());
-        log::info!("{:18}: {}", "Ref. sequence", r.display());
+        log::info!("{:18}: {}", "Ref. path", r.display());
         log::info!("{:18}: {}\n", "Output dir", save_path.display());
         let spin = utils::set_spinner();
         spin.set_message("Processing...");

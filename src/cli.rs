@@ -80,7 +80,6 @@ fn parse_extract_cli(matches: &ArgMatches, version: &str) {
     let refs = get_reference_path(ref_path);
     display_app_info(version);
     // log_input(contigs, ref_path);
-    println!();
     extract::extract_genes(&contigs, &refs, output);
     // print_complete();
 }
