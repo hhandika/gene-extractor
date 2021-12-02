@@ -55,4 +55,3 @@ OPTIONS:
     -o, --output <PATH>    Path to output files
     -r, --refs <PATH>      Path to reference fasta files
 ```
-
