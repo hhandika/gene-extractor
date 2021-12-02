@@ -1,5 +1,7 @@
 # gene-extractor
 
+![CI](https://github.com/hhandika/gene-extractor/workflows/CI/badge.svg)
+
 A command line app to extract gene from genomic contigs. The program requires phyluce and its dependencies to run. Future update may interact directly with Lastz, BWA-MEM or both.
 
 ## Installation
