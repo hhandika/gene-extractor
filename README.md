@@ -1,6 +1,6 @@
 # gene-extractor
 
-A command line app to extract gene from genomic contigs. The program requires phyluce and its dependencies to run. Future update may interact directly with Lastz or BWA-MEM or both.
+A command line app to extract gene from genomic contigs. The program requires phyluce and its dependencies to run. Future update may interact directly with Lastz, BWA-MEM or both.
 
 ## Installation
 
