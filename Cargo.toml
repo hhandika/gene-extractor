@@ -4,8 +4,10 @@ version = "0.1.0"
 authors = ["Heru Handika <herubiolog@gmail.com>"]
 edition = "2021"
 license = "MIT"
-description = "Extract gene using reference"
+description = "Extract multiple genes in genomic contigs using reference fasta file"
 readme = "README.md"
+repository = "https://github.com/hhandika/gene-extractor"
+homepage = "https://github.com/hhandika/gene-extractor"
 keywords = ["cli", "utility", "phylogenetics", "genomics", "phylogenomics"]
 categories = ["command-line-utilities", "science"]
 
