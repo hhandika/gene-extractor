@@ -28,6 +28,7 @@ fn get_args(version: &str) -> ArgMatches {
                         .long("dir")
                         .help("Path to contig directory")
                         .takes_value(true)
+                        .required(true)
                         .value_name("PATH"),
                 )
                 .arg(
@@ -36,6 +37,7 @@ fn get_args(version: &str) -> ArgMatches {
                         .long("refs")
                         .help("Path to reference fasta files")
                         .takes_value(true)
+                        .required(true)
                         .value_name("PATH"),
                 )
                 .arg(
@@ -44,6 +46,7 @@ fn get_args(version: &str) -> ArgMatches {
                         .long("output")
                         .help("Path to output files")
                         .takes_value(true)
+                        .required(true)
                         .value_name("PATH"),
                 ),
         )
@@ -61,9 +64,11 @@ pub fn parse_cli(version: &str) {
 }
 
 fn parse_extract_cli(matches: &ArgMatches, version: &str) {
-    let con_path = matches
-        .value_of("dir")
-        .expect("Failed get contig directory path.");
+    let contigs = Path::new(
+        matches
+            .value_of("dir")
+            .expect("Failed get contig directory path."),
+    );
     let ref_path = matches
         .value_of("refs")
         .expect("Failed to get reference directory path.");
@@ -72,13 +77,14 @@ fn parse_extract_cli(matches: &ArgMatches, version: &str) {
             .value_of("output")
             .expect("Failed get output directory path."),
     );
-    let contigs = get_contig_path(con_path);
     let refs = get_reference_path(ref_path);
     display_app_info(version);
-    log_input(con_path, ref_path);
+    // log_input(contigs, ref_path);
+    println!();
     extract::extract_genes(&contigs, &refs, output);
     // print_complete();
 }
+
 // fn parse_input_fmt(matches: &ArgMatches) -> InputFmt {
 //     let input_fmt = matches
 //         .value_of("input-fmt")
@@ -91,16 +97,16 @@ fn parse_extract_cli(matches: &ArgMatches, version: &str) {
 //     }
 // }
 
-fn get_contig_path(path: &str) -> Vec<PathBuf> {
-    find_files(Path::new(path))
-}
+// fn get_contig_path(path: &str) -> Vec<PathBuf> {
+//     find_files(Path::new(path))
+// }
 
 fn get_reference_path(path: &str) -> Vec<PathBuf> {
     find_files(Path::new(path))
 }
 
 fn find_files(path: &Path) -> Vec<PathBuf> {
-    glob(&format!("{}/*.nex*", path.display()))
+    glob(&format!("{}/*.fa*", path.display()))
         .expect("Failed globbing files")
         .filter_map(|ok| ok.ok())
         .collect::<Vec<PathBuf>>()
@@ -118,14 +124,14 @@ fn display_app_info(version: &str) {
 //     log::info!("Please, check each program log for commands and other details!\n")
 // }
 
-fn log_input(con_path: &str, ref_path: &str) {
-    log::info!("{:18}: {}", "Contig Dir", con_path);
-    log::info!("{:18}: {}", "Reference Dir", ref_path);
-    // match params {
-    //     Some(param) => log::info!("{:18}: {}", "Opt params", param),
-    //     None => log::info!("{:18}: None", "Params"),
-    // }
-}
+// fn log_input(contigs: &Path, ref_path: &str) {
+//     log::info!("{:18}: {}", "Contig Dir", contigs.display());
+//     log::info!("{:18}: {}", "Reference Dir", ref_path);
+//     // match params {
+//     //     Some(param) => log::info!("{:18}: {}", "Opt params", param),
+//     //     None => log::info!("{:18}: None", "Params"),
+//     // }
+// }
 
 fn setup_logger() -> Result<()> {
     let log_dir = std::env::current_dir()?;
