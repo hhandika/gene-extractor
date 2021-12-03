@@ -6,7 +6,7 @@ A command line app to extract gene from genomic contigs. The program requires ph
 
 ## Installation
 
-`genx` is a single executable command line app. The executable file will be available in the release [link](https://github.com/hhandika/myte/releases). Copy it to the folder that is registered in your PATH variable.
+`genx` is a single executable command line app. The executable file will be available in the release [link](https://github.com/hhandika/gene-extractor/releases). Copy it to the folder that is registered in your PATH variable.
 
 You can also install the app using the Rust package manager [cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html):
 
