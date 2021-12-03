@@ -79,9 +79,7 @@ fn parse_extract_cli(matches: &ArgMatches, version: &str) {
     );
     let refs = get_reference_path(ref_path);
     display_app_info(version);
-    // log_input(contigs, ref_path);
     extract::extract_genes(&contigs, &refs, output);
-    // print_complete();
 }
 
 // fn parse_input_fmt(matches: &ArgMatches) -> InputFmt {
@@ -94,10 +92,6 @@ fn parse_extract_cli(matches: &ArgMatches, version: &str) {
 //         "phylip" => InputFmt::Phylip,
 //         _ => unreachable!("Specify input format"),
 //     }
-// }
-
-// fn get_contig_path(path: &str) -> Vec<PathBuf> {
-//     find_files(Path::new(path))
 // }
 
 fn get_reference_path(path: &str) -> Vec<PathBuf> {
