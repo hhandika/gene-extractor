@@ -28,7 +28,8 @@ fn get_args(version: &str) -> ArgMatches {
                         .long("dir")
                         .help("Path to contig directory")
                         .takes_value(true)
-                        .value_name("DIR"),
+                        .required(true)
+                        .value_name("PATH"),
                 )
                 .arg(
                     Arg::with_name("refs")
@@ -36,7 +37,17 @@ fn get_args(version: &str) -> ArgMatches {
                         .long("refs")
                         .help("Path to reference fasta files")
                         .takes_value(true)
-                        .value_name("DIR"),
+                        .required(true)
+                        .value_name("PATH"),
+                )
+                .arg(
+                    Arg::with_name("output")
+                        .short("o")
+                        .long("output")
+                        .help("Path to output files")
+                        .takes_value(true)
+                        .required(true)
+                        .value_name("PATH"),
                 ),
         )
         .get_matches()
@@ -46,21 +57,31 @@ pub fn parse_cli(version: &str) {
     let args = get_args(version);
     setup_logger().expect("Failed setting up a log file.");
     match args.subcommand() {
-        ("extract", Some(extract_matches)) => parse_extract_cli(extract_matches, &version),
+        ("extract", Some(extract_matches)) => parse_extract_cli(extract_matches, version),
         ("check", Some(_)) => display_app_info(version),
         _ => unreachable!(),
     }
 }
 
 fn parse_extract_cli(matches: &ArgMatches, version: &str) {
-    let con_path = matches.value_of("dir").expect("CANNOT GET DIRECTORY PATH");
-    let ref_path = matches.value_of("refs").expect("CANNOT GET DIRECTORY PATH");
-    let contigs = get_contig_path(con_path);
+    let contigs = Path::new(
+        matches
+            .value_of("dir")
+            .expect("Failed get contig directory path."),
+    );
+    let ref_path = matches
+        .value_of("refs")
+        .expect("Failed to get reference directory path.");
+    let output = Path::new(
+        matches
+            .value_of("output")
+            .expect("Failed get output directory path."),
+    );
     let refs = get_reference_path(ref_path);
     display_app_info(version);
-    log_input(con_path, ref_path);
-    extract::extract_genes(&contigs, &refs);
+    extract::extract_genes(&contigs, &refs, output);
 }
+
 // fn parse_input_fmt(matches: &ArgMatches) -> InputFmt {
 //     let input_fmt = matches
 //         .value_of("input-fmt")
@@ -73,16 +94,12 @@ fn parse_extract_cli(matches: &ArgMatches, version: &str) {
 //     }
 // }
 
-fn get_contig_path(path: &str) -> Vec<PathBuf> {
-    find_files(Path::new(path))
-}
-
 fn get_reference_path(path: &str) -> Vec<PathBuf> {
     find_files(Path::new(path))
 }
 
 fn find_files(path: &Path) -> Vec<PathBuf> {
-    glob(&format!("{}/*.nex*", path.display()))
+    glob(&format!("{}/*.fa*", path.display()))
         .expect("Failed globbing files")
         .filter_map(|ok| ok.ok())
         .collect::<Vec<PathBuf>>()
@@ -100,14 +117,14 @@ fn display_app_info(version: &str) {
 //     log::info!("Please, check each program log for commands and other details!\n")
 // }
 
-fn log_input(con_path: &str, ref_path: &str) {
-    log::info!("{:18}: {}", "Contig Dir", con_path);
-    log::info!("{:18}: {}", "Reference Dir", ref_path);
-    // match params {
-    //     Some(param) => log::info!("{:18}: {}", "Opt params", param),
-    //     None => log::info!("{:18}: None", "Params"),
-    // }
-}
+// fn log_input(contigs: &Path, ref_path: &str) {
+//     log::info!("{:18}: {}", "Contig Dir", contigs.display());
+//     log::info!("{:18}: {}", "Reference Dir", ref_path);
+//     // match params {
+//     //     Some(param) => log::info!("{:18}: {}", "Opt params", param),
+//     //     None => log::info!("{:18}: None", "Params"),
+//     // }
+// }
 
 fn setup_logger() -> Result<()> {
     let log_dir = std::env::current_dir()?;
