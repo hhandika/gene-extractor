@@ -60,7 +60,6 @@ fn parse_extract_cli(matches: &ArgMatches, version: &str) {
     display_app_info(version);
     log_input(con_path, ref_path);
     extract::extract_genes(&contigs, &refs);
-    // print_complete();
 }
 // fn parse_input_fmt(matches: &ArgMatches) -> InputFmt {
 //     let input_fmt = matches
