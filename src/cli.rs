@@ -79,7 +79,7 @@ fn parse_extract_cli(matches: &ArgMatches, version: &str) {
     );
     let refs = get_reference_path(ref_path);
     display_app_info(version);
-    extract::extract_genes(&contigs, &refs, output);
+    extract::extract_genes(contigs, &refs, output);
 }
 
 // fn parse_input_fmt(matches: &ArgMatches) -> InputFmt {
