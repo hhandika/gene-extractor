@@ -23,6 +23,10 @@ log4rs = "1.*"
 glob = "0.*"
 indicatif = "0.*"
 
+[dev-dependencies]
+assert_cmd = "2.*"
+predicates = "2.*"
+
 [profile.release]
 panic = "abort"
 
